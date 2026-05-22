@@ -1,0 +1,15 @@
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: var(--color-bg);
+  font-family: var(--font-serif);
+}
+
+.text {
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: #444;
+  animation: pulse 1.5s infinite;
+}

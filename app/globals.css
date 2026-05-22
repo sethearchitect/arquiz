@@ -1,0 +1,87 @@
+:root {
+  --color-bg: #0c0c0b;
+  --color-bg-panel: #111110;
+  --color-fg: #ede8df;
+  --color-fg-muted: #999;
+  --color-fg-dim: #555;
+  --color-fg-ghost: #3a3a38;
+  --color-divider: rgba(255, 255, 255, 0.06);
+  --color-border: rgba(255, 255, 255, 0.18);
+  --font-serif: "Georgia", "Times New Roman", serif;
+  --duration-vote: 480ms;
+  --duration-transition: 80ms;
+  --duration-slide: 300ms;
+  --duration-img-scale: 600ms;
+  --panel-width: min(420px, 88vw);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+}
+
+/* Keyframes are global because CSS Modules cannot export @keyframe names
+   across file boundaries — component modules reference these by name. */
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes flashW {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+}

@@ -1,0 +1,11 @@
+.root {
+  background: var(--color-bg);
+  height: 100vh;
+  height: 100dvh;
+  font-family: var(--font-serif);
+  color: var(--color-fg);
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+  overflow: hidden;
+}

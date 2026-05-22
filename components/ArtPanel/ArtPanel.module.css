@@ -1,0 +1,192 @@
+/* ── Panel wrapper ─────────────────────────────── */
+.panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.winner {
+  animation: flashW var(--duration-vote) ease forwards;
+}
+
+.loser {
+  animation: fadeOut var(--duration-vote) ease forwards;
+}
+
+/* ── Image zone ───────────────────────────────── */
+.imageWrap {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: #111110;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  min-height: 0;
+  outline: none;
+}
+
+.imageWrap:focus-visible {
+  outline: 2px solid rgba(237, 232, 223, 0.35);
+  outline-offset: -2px;
+}
+
+.imageWrap[aria-disabled="true"] {
+  cursor: default;
+}
+
+/* Hover: reveal CTA, brighten image */
+.imageWrap:hover .voteCta {
+  opacity: 1;
+}
+
+.imageWrap:hover .image {
+  transform: scale(1.025);
+  filter: brightness(1);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  filter: brightness(0.92);
+  transition: transform var(--duration-img-scale) ease, filter 0.35s ease;
+  transform-origin: center;
+}
+
+/* ── Vote CTA overlay ─────────────────────────── */
+.voteCta {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.voteCtaText {
+  border: 1px solid rgba(237, 232, 223, 0.5);
+  padding: 0.55rem 1.4rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.28em;
+  color: var(--color-fg);
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  font-family: var(--font-serif);
+}
+
+/* ── Star / collect button ────────────────────── */
+.starBtn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  line-height: 1;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.starBtn:hover {
+  transform: scale(1.18);
+}
+
+.starBtnActive {
+  background: rgba(237, 232, 223, 0.88);
+  color: var(--color-bg);
+}
+
+.starBtnInactive {
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--color-fg);
+}
+
+/* ── Info zone ────────────────────────────────── */
+.info {
+  flex-shrink: 0;
+  overflow-y: auto;
+  padding: 0.9rem 1.25rem 1rem;
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-divider);
+}
+
+/* Meta chips: date · origin · department */
+.infoMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.55rem;
+}
+
+.metaChip {
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #666;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.15rem 0.5rem;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+.metaDept {
+  color: #555;
+}
+
+.title {
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.3;
+  margin: 0 0 0.3rem;
+  color: var(--color-fg);
+  font-family: var(--font-serif);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.artist {
+  font-size: 0.7rem;
+  color: var(--color-fg-muted);
+  line-height: 1.4;
+  margin: 0 0 0.45rem;
+}
+
+.medium {
+  font-size: 0.6rem;
+  color: #555;
+  line-height: 1.5;
+  margin: 0 0 0.6rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.viewLink {
+  display: inline-block;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #444;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.viewLink:hover {
+  color: #888;
+}
