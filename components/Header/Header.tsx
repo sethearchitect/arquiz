@@ -7,6 +7,8 @@ interface HeaderProps {
   isCollectionOpen: boolean;
   onToggleCollection: () => void;
   collectionBtnRef: RefObject<HTMLButtonElement | null>;
+  theme: "dark" | "light";
+  onToggleTheme: () => void;
 }
 
 export function Header({
@@ -15,6 +17,8 @@ export function Header({
   isCollectionOpen,
   onToggleCollection,
   collectionBtnRef,
+  theme,
+  onToggleTheme,
 }: HeaderProps) {
   return (
     <header className={styles.root}>
@@ -28,6 +32,13 @@ export function Header({
             {votes} votes
           </output>
         )}
+        <button
+          className={styles.themeBtn}
+          onClick={onToggleTheme}
+          aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+        >
+          {theme === "dark" ? "Light" : "Dark"}
+        </button>
         <button
           ref={collectionBtnRef}
           className={`${styles.collectBtn} ${isCollectionOpen ? styles.collectBtnActive : ""}`}

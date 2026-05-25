@@ -42,6 +42,7 @@ export function Arena({
         isWinner={winnerIdx === 0}
         isLoser={winnerIdx !== null && winnerIdx !== 0}
         isInCollection={isInCollection(pair[0].id)}
+        voteLabel="THIS"
         onVote={() => onVote(0)}
         onToggleCollect={(e) => {
           e.stopPropagation();
@@ -55,6 +56,7 @@ export function Arena({
         isWinner={winnerIdx === 1}
         isLoser={winnerIdx !== null && winnerIdx !== 1}
         isInCollection={isInCollection(pair[1].id)}
+        voteLabel="THAT"
         onVote={() => onVote(1)}
         onToggleCollect={(e) => {
           e.stopPropagation();

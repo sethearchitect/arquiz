@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { useArtPool } from "@/hooks/useArtPool";
 import { useArena } from "@/hooks/useArena";
 import { useCollection } from "@/hooks/useCollection";
+import { useTheme } from "@/hooks/useTheme";
 import { Header } from "@/components/Header/Header";
 import { Arena } from "@/components/Arena/Arena";
 import { CollectionPanel } from "@/components/CollectionPanel/CollectionPanel";
@@ -17,6 +18,7 @@ export default function ArenaPage() {
   const { pair, phase, winnerIdx, votes, advance, isReady } =
     useArena(pool, currentPage, totalPages, loadNextPage);
   const { collection, isInCollection, toggleItem, hydrated } = useCollection();
+  const { theme, toggleTheme } = useTheme();
   const [showCollection, setShowCollection] = useState(false);
   const collectionBtnRef = useRef<HTMLButtonElement>(null);
 
@@ -51,6 +53,8 @@ export default function ArenaPage() {
         isCollectionOpen={showCollection}
         onToggleCollection={() => setShowCollection((v) => !v)}
         collectionBtnRef={collectionBtnRef}
+        theme={theme}
+        onToggleTheme={toggleTheme}
       />
       <Arena
         pair={pair}

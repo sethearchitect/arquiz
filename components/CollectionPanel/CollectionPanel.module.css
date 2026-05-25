@@ -20,6 +20,19 @@
   font-family: var(--font-serif);
 }
 
+@media (max-width: 640px) {
+  .panel {
+    width: 100%;
+    border-left: none;
+    padding: 1.25rem 1rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+}
+
 .panelHeader {
   display: flex;
   justify-content: space-between;

@@ -4,7 +4,7 @@ export function VsDivider() {
   return (
     <div className={styles.root} aria-hidden="true">
       <div className={styles.line} />
-      <span className={styles.label}>vs</span>
+      <span className={styles.label}>or</span>
       <div className={styles.line} />
     </div>
   );

@@ -21,7 +21,7 @@
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  background: #111110;
+  background: var(--color-bg-panel);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,11 +39,7 @@
   cursor: default;
 }
 
-/* Hover: reveal CTA, brighten image */
-.imageWrap:hover .voteCta {
-  opacity: 1;
-}
-
+/* Hover: brighten image */
 .imageWrap:hover .image {
   transform: scale(1.025);
   filter: brightness(1);
@@ -59,27 +55,20 @@
   transform-origin: center;
 }
 
-/* ── Vote CTA overlay ─────────────────────────── */
-.voteCta {
+/* ── Vote label (THIS / THAT) ─────────────────── */
+.voteLabel {
   position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s;
-}
-
-.voteCtaText {
-  border: 1px solid rgba(237, 232, 223, 0.5);
-  padding: 0.55rem 1.4rem;
-  font-size: 0.6rem;
+  bottom: 0.75rem;
+  left: 0.75rem;
+  font-size: 0.55rem;
   letter-spacing: 0.28em;
   color: var(--color-fg);
   background: rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(6px);
+  border: 1px solid rgba(237, 232, 223, 0.25);
+  padding: 0.3rem 0.7rem;
   font-family: var(--font-serif);
+  pointer-events: none;
 }
 
 /* ── Star / collect button ────────────────────── */
@@ -123,27 +112,84 @@
   border-top: 1px solid var(--color-divider);
 }
 
-/* Meta chips: date · origin · department */
+/* ── Info header row (pills + toggle) ────────── */
+.infoHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.55rem;
+}
+
 .infoMeta {
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
-  margin-bottom: 0.55rem;
+  flex: 1;
 }
 
+.infoToggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--color-fg-dim);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0 0.15rem;
+  line-height: 1;
+  flex-shrink: 0;
+  font-family: var(--font-serif);
+}
+
+/* ── Expandable content ───────────────────────── */
+.infoExpandable {
+  /* always visible on desktop */
+}
+
+@media (max-width: 640px) {
+  .imageWrap {
+    padding: 0.75rem;
+  }
+
+  .info {
+    padding: 0.6rem 0.75rem 0.65rem;
+  }
+
+  .infoToggle {
+    display: block;
+  }
+
+  .infoExpandable {
+    display: none;
+  }
+
+  .infoExpanded {
+    display: block;
+  }
+
+  .title {
+    font-size: 0.82rem;
+    -webkit-line-clamp: 2;
+  }
+
+  .artist {
+    font-size: 0.63rem;
+  }
+}
+
+/* Meta chips: date · origin · department */
 .metaChip {
   font-size: 0.56rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #666;
-  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-fg-muted);
+  background: rgba(128, 128, 128, 0.1);
   padding: 0.15rem 0.5rem;
   border-radius: 2px;
   white-space: nowrap;
 }
 
 .metaDept {
-  color: #555;
+  color: var(--color-fg-dim);
 }
 
 .title {
@@ -168,7 +214,7 @@
 
 .medium {
   font-size: 0.6rem;
-  color: #555;
+  color: var(--color-fg-dim);
   line-height: 1.5;
   margin: 0 0 0.6rem;
   display: -webkit-box;
@@ -182,11 +228,11 @@
   font-size: 0.55rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #444;
+  color: var(--color-fg-ghost);
   text-decoration: none;
   transition: color 0.2s;
 }
 
 .viewLink:hover {
-  color: #888;
+  color: var(--color-fg-muted);
 }

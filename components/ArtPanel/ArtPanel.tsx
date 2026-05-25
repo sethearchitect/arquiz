@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { BROKEN_IMAGE_FALLBACK, getImageUrl } from "@/services/artic";
 import type { Artwork, VotePhase } from "@/types/artwork";
 import styles from "./ArtPanel.module.css";
@@ -8,6 +11,7 @@ interface ArtPanelProps {
   isWinner: boolean;
   isLoser: boolean;
   isInCollection: boolean;
+  voteLabel: "THIS" | "THAT";
   onVote: () => void;
   onToggleCollect: (e: React.MouseEvent) => void;
 }
@@ -18,9 +22,12 @@ export function ArtPanel({
   isWinner,
   isLoser,
   isInCollection,
+  voteLabel,
   onVote,
   onToggleCollect,
 }: ArtPanelProps) {
+  const [expanded, setExpanded] = useState(false);
+
   const panelClass = [
     styles.panel,
     isWinner && styles.winner,
@@ -57,8 +64,8 @@ export function ArtPanel({
           }}
         />
 
-        <div className={styles.voteCta} aria-hidden="true">
-          <span className={styles.voteCtaText}>CHOOSE THIS</span>
+        <div className={styles.voteLabel} aria-hidden="true">
+          {voteLabel}
         </div>
 
         <button
@@ -77,36 +84,48 @@ export function ArtPanel({
 
       {/* ── Persistent info zone ── */}
       <div className={styles.info}>
-        <div className={styles.infoMeta}>
-          {work.dateDisplay && (
-            <span className={styles.metaChip}>{work.dateDisplay}</span>
-          )}
-          {work.placeOfOrigin && (
-            <span className={styles.metaChip}>{work.placeOfOrigin}</span>
-          )}
-          {work.departmentTitle && (
-            <span className={`${styles.metaChip} ${styles.metaDept}`}>
-              {work.departmentTitle}
-            </span>
-          )}
+        <div className={styles.infoHeader}>
+          <div className={styles.infoMeta}>
+            {work.dateDisplay && (
+              <span className={styles.metaChip}>{work.dateDisplay}</span>
+            )}
+            {work.placeOfOrigin && (
+              <span className={styles.metaChip}>{work.placeOfOrigin}</span>
+            )}
+            {work.departmentTitle && (
+              <span className={`${styles.metaChip} ${styles.metaDept}`}>
+                {work.departmentTitle}
+              </span>
+            )}
+          </div>
+          <button
+            className={styles.infoToggle}
+            onClick={() => setExpanded((v) => !v)}
+            aria-expanded={expanded}
+            aria-label={expanded ? "Collapse artwork details" : "Expand artwork details"}
+          >
+            {expanded ? "−" : "+"}
+          </button>
         </div>
 
-        <h2 className={styles.title}>{work.title}</h2>
-        <p className={styles.artist}>{work.artistDisplay}</p>
+        <div className={`${styles.infoExpandable} ${expanded ? styles.infoExpanded : ""}`}>
+          <h2 className={styles.title}>{work.title}</h2>
+          <p className={styles.artist}>{work.artistDisplay}</p>
 
-        {work.mediumDisplay && (
-          <p className={styles.medium}>{work.mediumDisplay}</p>
-        )}
+          {work.mediumDisplay && (
+            <p className={styles.medium}>{work.mediumDisplay}</p>
+          )}
 
-        <a
-          href={`https://www.artic.edu/artworks/${work.id}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.viewLink}
-          onClick={(e) => e.stopPropagation()}
-        >
-          View at Art Institute of Chicago →
-        </a>
+          <a
+            href={`https://www.artic.edu/artworks/${work.id}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.viewLink}
+            onClick={(e) => e.stopPropagation()}
+          >
+            View at Art Institute of Chicago →
+          </a>
+        </div>
       </div>
     </article>
   );

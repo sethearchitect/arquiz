@@ -15,6 +15,17 @@
   --panel-width: min(420px, 88vw);
 }
 
+[data-theme="light"] {
+  --color-bg: #f5f0e8;
+  --color-bg-panel: #ede8df;
+  --color-fg: #1a1a18;
+  --color-fg-muted: #555;
+  --color-fg-dim: #888;
+  --color-fg-ghost: #bbb;
+  --color-divider: rgba(0, 0, 0, 0.08);
+  --color-border: rgba(0, 0, 0, 0.22);
+}
+
 *,
 *::before,
 *::after {
