@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useArtPool } from "@/hooks/useArtPool";
 import { useArena } from "@/hooks/useArena";
 import { useCollection } from "@/hooks/useCollection";
+import { useVoteHistory } from "@/hooks/useVoteHistory";
 import { useTheme } from "@/hooks/useTheme";
 import { Header } from "@/components/Header/Header";
 import { Arena } from "@/components/Arena/Arena";
@@ -18,7 +19,16 @@ export default function ArenaPage() {
   const { pair, phase, winnerIdx, votes, advance, isReady } =
     useArena(pool, currentPage, totalPages, loadNextPage);
   const { collection, isInCollection, toggleItem, hydrated } = useCollection();
+  const { history, addVote } = useVoteHistory();
   const { theme, toggleTheme } = useTheme();
+
+  const handleVote = useCallback(
+    (chosenIdx: 0 | 1) => {
+      if (pair) addVote(pair[chosenIdx]);
+      advance(chosenIdx);
+    },
+    [pair, addVote, advance]
+  );
   const [showCollection, setShowCollection] = useState(false);
   const collectionBtnRef = useRef<HTMLButtonElement>(null);
 
@@ -60,18 +70,20 @@ export default function ArenaPage() {
         pair={pair}
         phase={phase}
         winnerIdx={winnerIdx}
-        onVote={advance}
+        onVote={handleVote}
         isInCollection={isInCollection}
         onToggleCollect={toggleItem}
       />
       {showCollection && (
         <CollectionPanel
           collection={collection}
+          history={history}
           onClose={() => {
             setShowCollection(false);
             collectionBtnRef.current?.focus();
           }}
-          onRemoveItem={toggleItem}
+          onToggleCollect={toggleItem}
+          isInCollection={isInCollection}
         />
       )}
     </main>

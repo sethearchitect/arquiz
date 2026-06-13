@@ -144,3 +144,68 @@
   color: #444;
   margin: 0.15rem 0 0;
 }
+
+/* Tab bar */
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+  margin-top: -0.5rem;
+}
+
+.tab {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--color-fg-dim);
+  cursor: pointer;
+  font-family: var(--font-serif);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  padding: 0.4rem 0.75rem 0.5rem;
+  text-transform: uppercase;
+  transition: color 0.2s, border-color 0.2s;
+  margin-bottom: -1px;
+}
+
+.tab:hover {
+  color: var(--color-fg-muted);
+}
+
+.tabActive {
+  border-bottom-color: var(--color-fg);
+  color: var(--color-fg);
+}
+
+/* Star button (votes tab) */
+
+.itemStar {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: #888;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.itemStar:hover {
+  color: var(--color-fg);
+}
+
+.itemStarActive {
+  color: #d4a843;
+}
+
+.itemStarActive:hover {
+  color: #e8c060;
+}

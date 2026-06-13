@@ -4,10 +4,12 @@ import styles from "./CollectionPanel.module.css";
 
 interface CollectionItemProps {
   work: Artwork;
-  onRemove: () => void;
+  onRemove?: () => void;
+  onStar?: () => void;
+  isStarred?: boolean;
 }
 
-export function CollectionItem({ work, onRemove }: CollectionItemProps) {
+export function CollectionItem({ work, onRemove, onStar, isStarred }: CollectionItemProps) {
   return (
     <div className={styles.item}>
       <img
@@ -18,13 +20,28 @@ export function CollectionItem({ work, onRemove }: CollectionItemProps) {
           e.currentTarget.src = BROKEN_IMAGE_FALLBACK;
         }}
       />
-      <button
-        className={styles.itemRemove}
-        onClick={onRemove}
-        aria-label={`Remove "${work.title}" from collection`}
-      >
-        ×
-      </button>
+      {onRemove && (
+        <button
+          className={styles.itemRemove}
+          onClick={onRemove}
+          aria-label={`Remove "${work.title}" from collection`}
+        >
+          ×
+        </button>
+      )}
+      {onStar && (
+        <button
+          className={`${styles.itemStar} ${isStarred ? styles.itemStarActive : ""}`}
+          onClick={onStar}
+          aria-label={
+            isStarred
+              ? `Remove "${work.title}" from collection`
+              : `Add "${work.title}" to collection`
+          }
+        >
+          {isStarred ? "★" : "☆"}
+        </button>
+      )}
       <p className={styles.itemTitle}>{work.title}</p>
       <p className={styles.itemArtist}>{work.artistDisplay}</p>
       {work.dateDisplay && (
