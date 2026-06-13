@@ -1,4 +1,4 @@
-import { getImageUrl, BROKEN_IMAGE_FALLBACK } from "@/services/artic";
+import { getImageUrl, BROKEN_IMAGE_FALLBACK } from "@/services/met";
 import type { Artwork } from "@/types/artwork";
 import styles from "./CollectionPanel.module.css";
 

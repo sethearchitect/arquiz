@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { BROKEN_IMAGE_FALLBACK, getImageUrl } from "@/services/artic";
+import { BROKEN_IMAGE_FALLBACK, getImageUrl } from "@/services/met";
 import type { Artwork, VotePhase } from "@/types/artwork";
 import styles from "./ArtPanel.module.css";
 

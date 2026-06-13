@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { fetchArtworks, ArticFetchError } from "@/services/artic";
+import { fetchAfricanArtIds, fetchArtworkBatch } from "@/services/met";
 import type { Artwork } from "@/types/artwork";
+
+const BATCH_SIZE = 40;
 
 interface UseArtPoolReturn {
   pool: Artwork[];
@@ -20,31 +22,44 @@ export function useArtPool(): UseArtPoolReturn {
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
-  const isFetchingRef = useRef(false);
-  const lastAttemptedPageRef = useRef(1);
 
-  const fetchPage = useCallback(async (page: number) => {
+  const allIdsRef = useRef<number[]>([]);
+  const cursorRef = useRef(0);
+  const isFetchingRef = useRef(false);
+
+  // Handles both phases: load IDs (once) then fetch the next batch of objects
+  const fetchNextBatch = useCallback(async () => {
     if (isFetchingRef.current) return;
     isFetchingRef.current = true;
-    lastAttemptedPageRef.current = page;
     setIsLoading(true);
     setError(null);
 
     try {
-      const { works, pagination } = await fetchArtworks(page);
-      setPool((prev) => {
-        const existingIds = new Set(prev.map((w) => w.id));
-        const newWorks = works.filter((w) => !existingIds.has(w.id));
-        return [...prev, ...newWorks];
-      });
-      setCurrentPage(pagination.current_page);
-      setTotalPages(pagination.total_pages);
-    } catch (err) {
-      if (err instanceof ArticFetchError) {
-        setError(err.message);
-      } else {
-        setError("An unexpected error occurred.");
+      // Phase 1: fetch all IDs if not yet loaded
+      if (allIdsRef.current.length === 0) {
+        const ids = await fetchAfricanArtIds();
+        allIdsRef.current = ids;
       }
+
+      // Phase 2: fetch next slice of objects
+      const slice = allIdsRef.current.slice(cursorRef.current, cursorRef.current + BATCH_SIZE);
+      if (slice.length === 0) return;
+
+      const works = await fetchArtworkBatch(slice);
+      cursorRef.current += slice.length;
+
+      setPool((prev) => {
+        const seen = new Set(prev.map((w) => w.id));
+        return [...prev, ...works.filter((w) => !seen.has(w.id))];
+      });
+      setCurrentPage(Math.ceil(cursorRef.current / BATCH_SIZE));
+      setTotalPages(Math.max(Math.ceil(allIdsRef.current.length / BATCH_SIZE), 1));
+    } catch {
+      setError(
+        allIdsRef.current.length === 0
+          ? "Could not load the African art collection."
+          : "Could not load artworks. Please try again."
+      );
     } finally {
       setIsLoading(false);
       isFetchingRef.current = false;
@@ -52,19 +67,18 @@ export function useArtPool(): UseArtPoolReturn {
   }, []);
 
   useEffect(() => {
-    fetchPage(1);
-  }, [fetchPage]);
+    fetchNextBatch();
+  }, [fetchNextBatch]);
 
   const loadNextPage = useCallback(async () => {
     if (currentPage < totalPages) {
-      await fetchPage(currentPage + 1);
+      await fetchNextBatch();
     }
-  }, [currentPage, totalPages, fetchPage]);
+  }, [currentPage, totalPages, fetchNextBatch]);
 
   const retry = useCallback(() => {
-    const page = lastAttemptedPageRef.current;
-    fetchPage(page);
-  }, [fetchPage]);
+    fetchNextBatch();
+  }, [fetchNextBatch]);
 
   return { pool, isLoading, error, currentPage, totalPages, loadNextPage, retry };
 }

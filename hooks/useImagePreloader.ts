@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { getImageUrl } from "@/services/artic";
+import { getImageUrl } from "@/services/met";
 import type { ArtworkPair } from "@/types/artwork";
 
 export function useImagePreloader(nextPair: ArtworkPair | null): void {

@@ -5,8 +5,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "www.artic.edu",
-        pathname: "/iiif/**",
+        hostname: "images.metmuseum.org",
       },
     ],
   },
