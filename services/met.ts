@@ -41,7 +41,7 @@ function shuffle<T>(arr: T[]): T[] {
 export async function fetchAfricanArtIds(): Promise<number[]> {
   const url =
     `${MET_BASE}/search` +
-    `?q=africa&geoLocation=Africa&hasImages=true&isPublicDomain=true`;
+    `?q=africa&departmentId=5&hasImages=true&isPublicDomain=true`;
 
   let response: Response;
   try {
@@ -70,14 +70,14 @@ export async function fetchArtworkBatch(ids: number[]): Promise<Artwork[]> {
   return results
     .filter((r): r is PromiseFulfilledResult<MetObject> => r.status === "fulfilled")
     .map((r) => r.value)
-    .filter((obj) => obj.primaryImage && obj.isPublicDomain)
+    .filter((obj) => (obj.primaryImage || obj.primaryImageSmall) && obj.isPublicDomain)
     .map((obj) => ({
       id: obj.objectID,
       title: obj.title || "Untitled",
       artistDisplay:
         [obj.artistDisplayName, obj.artistDisplayBio].filter(Boolean).join(", ") ||
         "Unknown artist",
-      imageId: obj.primaryImage,
+      imageId: obj.primaryImage || obj.primaryImageSmall,
       dateDisplay: obj.objectDate || null,
       mediumDisplay: obj.medium || null,
       placeOfOrigin: obj.country || null,
