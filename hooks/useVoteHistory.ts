@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import type { Artwork } from "@/types/artwork";
 
-const STORAGE_KEY = "arquiz_votes_v1";
+const STORAGE_KEY = "arquiz_votes_v2";
 
 interface UseVoteHistoryReturn {
   history: Artwork[];

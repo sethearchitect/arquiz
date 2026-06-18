@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import type { Artwork } from "@/types/artwork";
 
-const STORAGE_KEY = "arquiz_collection_v1";
+const STORAGE_KEY = "arquiz_collection_v2";
 
 interface UseCollectionReturn {
   collection: Artwork[];

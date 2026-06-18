@@ -18,8 +18,8 @@ export default function ArenaPage() {
     useArtPool();
   const { pair, phase, winnerIdx, votes, advance, isReady } =
     useArena(pool, currentPage, totalPages, loadNextPage);
-  const { collection, isInCollection, toggleItem, hydrated } = useCollection();
-  const { history, addVote } = useVoteHistory();
+  const { collection, isInCollection, toggleItem, hydrated: collectionHydrated } = useCollection();
+  const { history, addVote, hydrated: votesHydrated } = useVoteHistory();
   const { theme, toggleTheme } = useTheme();
 
   const handleVote = useCallback(
@@ -59,7 +59,7 @@ export default function ArenaPage() {
     <main className={styles.root}>
       <Header
         votes={votes}
-        collectionCount={hydrated ? collection.length : 0}
+        collectionCount={collectionHydrated ? collection.length : 0}
         isCollectionOpen={showCollection}
         onToggleCollection={() => setShowCollection((v) => !v)}
         collectionBtnRef={collectionBtnRef}
@@ -76,8 +76,8 @@ export default function ArenaPage() {
       />
       {showCollection && (
         <CollectionPanel
-          collection={collection}
-          history={history}
+          collection={collectionHydrated ? collection : []}
+          history={votesHydrated ? history : []}
           onClose={() => {
             setShowCollection(false);
             collectionBtnRef.current?.focus();
