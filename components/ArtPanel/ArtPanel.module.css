@@ -148,6 +148,22 @@
   /* always visible on desktop */
 }
 
+/* Meta chips: date · origin · department */
+.metaChip {
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+  background: rgba(128, 128, 128, 0.1);
+  padding: 0.15rem 0.5rem;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+.metaDept {
+  color: var(--color-fg-dim);
+}
+
 @media (max-width: 640px) {
   .panel {
     height: auto;
@@ -195,22 +211,6 @@
     word-break: break-word;
     max-width: 100%;
   }
-}
-
-/* Meta chips: date · origin · department */
-.metaChip {
-  font-size: 0.56rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-fg-muted);
-  background: rgba(128, 128, 128, 0.1);
-  padding: 0.15rem 0.5rem;
-  border-radius: 2px;
-  white-space: nowrap;
-}
-
-.metaDept {
-  color: var(--color-fg-dim);
 }
 
 .title {
