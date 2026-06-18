@@ -104,12 +104,13 @@ export function ArtPanel({
             aria-expanded={expanded}
             aria-label={expanded ? "Collapse artwork details" : "Expand artwork details"}
           >
-            {expanded ? "−" : "+"}
+            {expanded ? "Info −" : "Info +"}
           </button>
         </div>
 
+        <h2 className={styles.title}>{work.title}</h2>
+
         <div className={`${styles.infoExpandable} ${expanded ? styles.infoExpanded : ""}`}>
-          <h2 className={styles.title}>{work.title}</h2>
           <p className={styles.artist}>{work.artistDisplay}</p>
 
           {work.mediumDisplay && (

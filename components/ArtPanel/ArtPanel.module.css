@@ -132,12 +132,15 @@
   background: transparent;
   border: none;
   color: var(--color-fg-dim);
-  font-size: 0.9rem;
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   cursor: pointer;
-  padding: 0 0.15rem;
+  padding: 0.15rem 0.4rem;
   line-height: 1;
   flex-shrink: 0;
   font-family: var(--font-serif);
+  white-space: nowrap;
 }
 
 /* ── Expandable content ───────────────────────── */
@@ -158,17 +161,18 @@
     display: block;
   }
 
+  .title {
+    font-size: 0.82rem;
+    -webkit-line-clamp: 2;
+    margin-top: 0.4rem;
+  }
+
   .infoExpandable {
     display: none;
   }
 
   .infoExpanded {
     display: block;
-  }
-
-  .title {
-    font-size: 0.82rem;
-    -webkit-line-clamp: 2;
   }
 
   .artist {
