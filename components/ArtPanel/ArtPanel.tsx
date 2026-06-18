@@ -117,13 +117,13 @@ export function ArtPanel({
           )}
 
           <a
-            href={`https://www.artic.edu/artworks/${work.id}`}
+            href={`https://www.metmuseum.org/art/collection/search/${work.id}`}
             target="_blank"
             rel="noopener noreferrer"
             className={styles.viewLink}
             onClick={(e) => e.stopPropagation()}
           >
-            View at Art Institute of Chicago →
+            View at The Met →
           </a>
         </div>
       </div>
