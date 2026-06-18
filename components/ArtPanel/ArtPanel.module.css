@@ -189,6 +189,12 @@
   .artist {
     font-size: 0.63rem;
   }
+
+  .metaChip {
+    white-space: normal;
+    word-break: break-word;
+    max-width: 100%;
+  }
 }
 
 /* Meta chips: date · origin · department */
