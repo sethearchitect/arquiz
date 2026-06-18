@@ -9,3 +9,11 @@
   user-select: none;
   overflow: hidden;
 }
+
+@media (max-width: 640px) {
+  .root {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+}

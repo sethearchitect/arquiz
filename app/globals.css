@@ -96,3 +96,12 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #333;
 }
+
+@media (max-width: 640px) {
+  html,
+  body {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: auto;
+  }
+}

@@ -149,12 +149,23 @@
 }
 
 @media (max-width: 640px) {
+  .panel {
+    height: auto;
+    overflow: visible;
+    min-height: 0;
+  }
+
   .imageWrap {
     padding: 0.75rem;
+    flex: none;
+    height: 42vh;
+    min-height: 200px;
+    overflow: hidden;
   }
 
   .info {
     padding: 0.6rem 0.75rem 0.65rem;
+    overflow: visible;
   }
 
   .infoToggle {
