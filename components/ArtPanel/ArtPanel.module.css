@@ -151,7 +151,7 @@
 @media (max-width: 640px) {
   .panel {
     height: auto;
-    overflow: visible;
+    overflow: hidden;
     min-height: 0;
   }
 
