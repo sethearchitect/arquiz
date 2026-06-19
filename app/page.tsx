@@ -6,9 +6,11 @@ import { useArena } from "@/hooks/useArena";
 import { useCollection } from "@/hooks/useCollection";
 import { useVoteHistory } from "@/hooks/useVoteHistory";
 import { useTheme } from "@/hooks/useTheme";
+import { useOnboarding } from "@/hooks/useOnboarding";
 import { Header } from "@/components/Header/Header";
 import { Arena } from "@/components/Arena/Arena";
 import { CollectionPanel } from "@/components/CollectionPanel/CollectionPanel";
+import { Onboarding } from "@/components/Onboarding/Onboarding";
 import { LoadingScreen } from "@/components/LoadingScreen/LoadingScreen";
 import { ErrorScreen } from "@/components/ErrorScreen/ErrorScreen";
 import styles from "./page.module.css";
@@ -21,6 +23,7 @@ export default function ArenaPage() {
   const { collection, isInCollection, toggleItem, hydrated: collectionHydrated } = useCollection();
   const { history, addVote, hydrated: votesHydrated } = useVoteHistory();
   const { theme, toggleTheme } = useTheme();
+  const { step, isActive, hydrated: onboardingHydrated, advance: nextTip, dismiss: skipTips } = useOnboarding();
 
   const handleVote = useCallback(
     (chosenIdx: 0 | 1) => {
@@ -85,6 +88,10 @@ export default function ArenaPage() {
           onToggleCollect={toggleItem}
           isInCollection={isInCollection}
         />
+      )}
+
+      {onboardingHydrated && isActive && (
+        <Onboarding key={step} step={step} onNext={nextTip} onSkip={skipTips} />
       )}
     </main>
   );

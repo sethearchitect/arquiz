@@ -1,0 +1,161 @@
+/* ── Backdrop ───────────────────────────────────── */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 305;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="light"] .backdrop {
+  background: rgba(0, 0, 0, 0.28);
+}
+
+/* ── Tooltip card ───────────────────────────────── */
+.tooltip {
+  position: fixed;
+  z-index: 310;
+  width: 260px;
+  top: var(--tip-top);
+  left: var(--tip-left);
+  right: var(--tip-right);
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border);
+  padding: 1.1rem 1.25rem 1rem;
+  font-family: var(--font-serif);
+  animation: tooltipIn 300ms ease both;
+}
+
+@media (max-width: 640px) {
+  .tooltip {
+    width: min(280px, calc(100vw - 2rem));
+    top: var(--tip-top-m);
+    left: var(--tip-left-m);
+    right: var(--tip-right-m);
+    transform: var(--tip-center-m, none);
+  }
+}
+
+/* ── Arrow: pointing UP (tooltip is below target) ── */
+.arrowTop::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 28px;
+  border: 7px solid transparent;
+  border-bottom-color: var(--color-border);
+}
+.arrowTop::after {
+  content: "";
+  position: absolute;
+  top: -11px;
+  left: 29px;
+  border: 6px solid transparent;
+  border-bottom-color: var(--color-bg-panel);
+}
+
+/* ── Arrow: pointing UP, at right side of card ──── */
+.arrowTopRight::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  right: 28px;
+  border: 7px solid transparent;
+  border-bottom-color: var(--color-border);
+}
+.arrowTopRight::after {
+  content: "";
+  position: absolute;
+  top: -11px;
+  right: 29px;
+  border: 6px solid transparent;
+  border-bottom-color: var(--color-bg-panel);
+}
+
+/* ── Step dots ──────────────────────────────────── */
+.dots {
+  display: flex;
+  gap: 0.45rem;
+  margin-bottom: 0.9rem;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-fg-dim);
+  transition: background 0.2s;
+}
+
+.dotActive {
+  background: var(--color-fg);
+}
+
+/* ── Text ───────────────────────────────────────── */
+.title {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-fg);
+  margin: 0 0 0.5rem;
+  font-weight: 400;
+}
+
+.body {
+  font-size: 0.72rem;
+  line-height: 1.6;
+  color: var(--color-fg-muted);
+  margin: 0 0 1rem;
+}
+
+/* ── Buttons ────────────────────────────────────── */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.skipBtn {
+  background: transparent;
+  border: none;
+  color: var(--color-fg-dim);
+  font-family: var(--font-serif);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 0.25rem 0;
+  transition: color 0.2s;
+}
+
+.skipBtn:hover {
+  color: var(--color-fg-muted);
+}
+
+.nextBtn {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-fg);
+  font-family: var(--font-serif);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 0.35rem 0.85rem;
+  transition: background 0.2s;
+}
+
+.nextBtn:hover {
+  background: rgba(128, 128, 128, 0.12);
+}
+
+/* ── Enter animation ────────────────────────────── */
+@keyframes tooltipIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
