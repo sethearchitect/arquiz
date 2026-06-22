@@ -61,7 +61,7 @@ export default function ArenaPage() {
   return (
     <main className={styles.root}>
       <Header
-        votes={votes}
+        votes={votesHydrated ? history.length : votes}
         collectionCount={collectionHydrated ? collection.length : 0}
         isCollectionOpen={showCollection}
         onToggleCollection={() => setShowCollection((v) => !v)}
