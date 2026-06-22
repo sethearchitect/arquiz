@@ -11,6 +11,7 @@ interface UseArenaReturn {
   winnerIdx: 0 | 1 | null;
   votes: number;
   advance: (chosenIdx: 0 | 1) => void;
+  skip: () => void;
   isReady: boolean;
 }
 
@@ -111,12 +112,45 @@ export function useArena(
     [loadNextPage]
   );
 
+  const skip = useCallback(() => {
+    if (phaseRef.current !== "idle" || !pairRef.current) return;
+    setPhase("transitioning");
+    phaseRef.current = "transitioning";
+
+    const recentSeen = seenRef.current.slice(-20);
+    const speculative = pickTwo(poolRef.current, recentSeen);
+
+    const seenSet = new Set(recentSeen);
+    const available = poolRef.current.filter((w) => !seenSet.has(w.id));
+    if (available.length < 12 && currentPageRef.current < totalPagesRef.current) {
+      loadNextPage();
+    }
+    if (currentPageRef.current >= totalPagesRef.current && available.length < 4) {
+      seenRef.current = [];
+    }
+
+    const nextP = speculative ?? pairRef.current!;
+    seenRef.current = [...seenRef.current, nextP[0].id, nextP[1].id];
+    setPair(nextP);
+    pairRef.current = nextP;
+
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        setPhase("idle");
+        phaseRef.current = "idle";
+        const upcomingNext = pickTwo(poolRef.current, seenRef.current.slice(-20));
+        setNextPair(upcomingNext);
+      }, 80);
+    });
+  }, [loadNextPage]);
+
   return {
     pair,
     phase,
     winnerIdx,
     votes,
     advance,
+    skip,
     isReady: pair !== null,
   };
 }

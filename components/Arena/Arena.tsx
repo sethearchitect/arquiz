@@ -11,6 +11,7 @@ interface ArenaProps {
   phase: VotePhase;
   winnerIdx: 0 | 1 | null;
   onVote: (idx: 0 | 1) => void;
+  onSkip: () => void;
   isInCollection: (id: number) => boolean;
   onToggleCollect: (work: Artwork) => void;
 }
@@ -20,6 +21,7 @@ export function Arena({
   phase,
   winnerIdx,
   onVote,
+  onSkip,
   isInCollection,
   onToggleCollect,
 }: ArenaProps) {
@@ -29,10 +31,11 @@ export function Arena({
       if (phase !== "idle") return;
       if (e.key === "ArrowLeft" || e.key === "1") onVote(0);
       if (e.key === "ArrowRight" || e.key === "2") onVote(1);
+      if (e.key.toLowerCase() === "s") onSkip();
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [phase, onVote]);
+  }, [phase, onVote, onSkip]);
 
   return (
     <section className={styles.root} aria-label="Artwork voting arena">
@@ -49,7 +52,7 @@ export function Arena({
           onToggleCollect(pair[0]);
         }}
       />
-      <VsDivider />
+      <VsDivider onSkip={phase === "idle" ? onSkip : undefined} />
       <ArtPanel
         work={pair[1]}
         phase={phase}

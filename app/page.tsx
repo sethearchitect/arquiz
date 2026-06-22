@@ -18,7 +18,7 @@ import styles from "./page.module.css";
 export default function ArenaPage() {
   const { pool, isLoading, error, currentPage, totalPages, loadNextPage, retry } =
     useArtPool();
-  const { pair, phase, winnerIdx, votes, advance, isReady } =
+  const { pair, phase, winnerIdx, votes, advance, skip, isReady } =
     useArena(pool, currentPage, totalPages, loadNextPage);
   const { collection, isInCollection, toggleItem, hydrated: collectionHydrated } = useCollection();
   const { history, addVote, hydrated: votesHydrated } = useVoteHistory();
@@ -74,6 +74,7 @@ export default function ArenaPage() {
         phase={phase}
         winnerIdx={winnerIdx}
         onVote={handleVote}
+        onSkip={skip}
         isInCollection={isInCollection}
         onToggleCollect={toggleItem}
       />
